@@ -7,7 +7,6 @@ sap.ui.define([
 
 		onInit: function() {
 
-			this.aCountry = [];
 			this._oView = this.getView();
 			this._oInput = this._oView.byId("iMobilePhoneNumber");
 			this._initModel();
@@ -55,17 +54,21 @@ sap.ui.define([
 
 			debugger;
 
+			var sValue;
+
 			if (this.oIti.isValidNumber()) {
 				// Do submit process
 				this._oInput.setValueState(sap.ui.core.ValueState.Success);
 				// Get Value from Mobile Phone Input
-				var sValue = "Valid Number: " + this._getViewModel().getProperty("/MobilePhoneNumber");
-				this._getViewModel().setProperty("/ValidNumber",sValue);
+				sValue = "Valid Number: " + this._getViewModel().getProperty("/MobilePhoneNumber");
 
 			} else {
 				// Don't submit process
 				this._oInput.setValueState(sap.ui.core.ValueState.Error);
+				sValue = "Wrong phone number.";
 			}
+
+			this._getViewModel().setProperty("/ValidNumber", sValue);
 
 		},
 
